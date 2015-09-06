@@ -1,6 +1,8 @@
 package org.example;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import static org.example.Main.main;
 
@@ -8,6 +10,10 @@ import static org.example.Main.main;
  * @author laurentleseigneur
  */
 public class MainTest {
+
+    @Rule
+    public ExpectedSystemExit expectedSystemExit = ExpectedSystemExit.none();
+
     @Test
     public void should_do_the_job() throws Exception {
         //given
@@ -37,11 +43,11 @@ public class MainTest {
 
     @Test
     public void should_not_do_the_job_with_null_parameter() throws Exception {
+        //then
+        expectedSystemExit.expectSystemExitWithStatus(1);
+
         //when
         main(null);
-
-        //then
-        //...how to check result ???
 
     }
 
@@ -50,11 +56,12 @@ public class MainTest {
         //given
         String[] args = {};
 
+        //then
+        expectedSystemExit.expectSystemExitWithStatus(1);
+
         //when
         main(null);
 
-        //then
-        //...how to check result ???
 
     }
 }
